@@ -9,30 +9,10 @@ namespace CodeDI
 {
     public static class CodeDI
     {
-        public static IServiceCollection AddCoreDI(this IServiceCollection services)
+        public static IServiceCollection AddCoreDI(this IServiceCollection services, CoderDIOptions options = null)
         {
-            AddService(services);
-            return services;
+            return new CodeDIService(services, options).AddService();
         }
 
-        public static IServiceCollection AddCoreDI(this IServiceCollection services, CoderDIOptions options)
-        {
-            AddService(services, options);
-            return services;
-        }
-
-        private static void AddService(IServiceCollection services, CoderDIOptions options = null)
-        {
-            if (options == null)
-            {
-                options = CoderDIOptions.GetOptionsWithDefaultValue();
-
-                var assemblies = AssemblyLoader.LoadAssembly(options);
-
-                var allInterfaces = assemblies.SelectMany(u => u.GetTypes()).Where(u => u.IsInterface);
-
-
-            }
-        }
     }
 }

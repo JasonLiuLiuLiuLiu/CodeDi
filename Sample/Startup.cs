@@ -30,6 +30,7 @@ namespace Example
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddSingleton<Interface1, Class1>();
 
             services.AddCoreDI();
 

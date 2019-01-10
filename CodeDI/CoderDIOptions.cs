@@ -6,21 +6,32 @@ namespace CodeDI
 {
     public class CoderDIOptions
     {
-        public string[] AssemblyNames { get; set; }
-        public string[] AssemblyPath { get; set; }
-        public bool IncludeSystemAssembly { get; set; }
-
-
-        public static CoderDIOptions GetOptionsWithDefaultValue()
+        private int? _defaultServiceLifetime;
+        public int DefaultServiceLifetime
         {
-            return new CoderDIOptions()
-            {
-                //This means Anything https://stackoverflow.com/questions/1798285/parsing-quantifier-x-y-following-nothing
-                AssemblyNames = new[] { ".*" },
-
-                AssemblyPath = new []{AppDomain.CurrentDomain.BaseDirectory,AppDomain.CurrentDomain.RelativeSearchPath,AppDomain.CurrentDomain.DynamicDirectory}
-                
-            };
+            get => _defaultServiceLifetime ?? 1;
+            set => _defaultServiceLifetime = value;
         }
+
+        private string[] _assemblyNames;
+        public string[] AssemblyNames
+        {
+            get => _assemblyNames ?? new[] { ".*" };
+            set => _assemblyNames = value;
+        }
+
+        private string[] _assemblyPaths;
+        public string[] AssemblyPaths
+        {
+            get => _assemblyPaths ?? new[] { AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.RelativeSearchPath, AppDomain.CurrentDomain.DynamicDirectory };
+            set => _assemblyPaths = value;
+        }
+        public string[] IgnoreAssemblies { get; set; }
+        public bool IncludeSystemAssemblies { get; set; }
+
+        public string[] IgnoreInterface { get; set; }
+
+        public Dictionary<string, string> InterfaceMappings { get; set; }
+        public Dictionary<string, int> ServiceLifeTimeMappings { get; set; }
     }
 }

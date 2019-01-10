@@ -10,10 +10,10 @@ namespace CodeDI
 {
     class AssemblyLoader
     {
-        public static IEnumerable<Assembly> LoadAssembly(CoderDIOptions options)
+        public static IList<Assembly> LoadAssembly(CoderDIOptions options)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            if (!options.IncludeSystemAssembly)
+            if (!options.IncludeSystemAssemblies)
             {
                 assemblies = assemblies.Where(assembly => assembly.ManifestModule.Name != "<In Memory Module>"
                                                           && !assembly.FullName.StartsWith("System")
@@ -25,8 +25,11 @@ namespace CodeDI
                                                           && assembly.FullName.IndexOf("SMDiagnostics", StringComparison.Ordinal) == -1
                                                           && !string.IsNullOrEmpty(assembly.Location)).ToList();
             }
-            assemblies.AddRange(LoadFromPaths(options.AssemblyPath).Where(toAdd=>assemblies.All(u=>u.FullName!=toAdd.FullName)));
-            return assemblies.Where(u => options.AssemblyNames.Any(name => Regex.IsMatch(u.FullName, name))).Distinct();
+            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd=>assemblies.All(u=>u.FullName!=toAdd.FullName)));
+            return assemblies.Where(u => options.AssemblyNames.Any( name => Regex.IsMatch(u.FullName, name)))
+                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => Regex.IsMatch(u.FullName, ignore) == false))
+                .Distinct().ToList();
+           
         }
 
         private static IEnumerable<Assembly> LoadFromPaths(string[] paths)
