@@ -18,7 +18,7 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/aspectcore/api/v2/package
   api_key:
-    secure: jpjXYvzq6XOX2E5PnhKPRBK/DKVoZAQ6Ok1UmWI3BuWq6rdtrGJMUJem/GtR8+qG
+    secure: yhzYAvjn1OM1tBf+OV6G6G0JmM0ABSA70rhIHtitvWUmDyQh223zr8zNPiSPMlXP
   skip_symbols: true
   artifact: /artifacts\/packages\/.+\.nupkg/
   on:
