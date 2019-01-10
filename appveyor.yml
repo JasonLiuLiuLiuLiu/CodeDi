@@ -16,7 +16,7 @@ artifacts:
 - path: artifacts/packages/*.nupkg
 deploy:
 - provider: NuGet
-  server: https://www.myget.org/F/aspectcore/api/v2/package
+  server: https://api.nuget.org/v3/index.json
   api_key:
     secure: yhzYAvjn1OM1tBf+OV6G6G0JmM0ABSA70rhIHtitvWUmDyQh223zr8zNPiSPMlXP
   skip_symbols: true
