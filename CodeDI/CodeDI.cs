@@ -14,5 +14,12 @@ namespace CodeDI
             return new CodeDIService(services, options).AddService();
         }
 
+        public static IServiceCollection AddCoreDI(this IServiceCollection services, Action<CoderDIOptions> actionOptions)
+        {
+            CoderDIOptions options = new CoderDIOptions();
+            actionOptions(options);
+            return new CodeDIService(services, options).AddService();
+        }
+
     }
 }
