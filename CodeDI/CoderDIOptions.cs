@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace CodeDI
+namespace CodeDi
 {
     public class CoderDiOptions
     {
-        private int? _defaultServiceLifetime;
-        public int DefaultServiceLifetime
-        {
-            get => _defaultServiceLifetime ?? 1;
-            set => _defaultServiceLifetime = value;
-        }
+        public ServiceLifetime DefaultServiceLifetime { get; set; } = ServiceLifetime.Scoped;
 
         private string[] _assemblyNames;
         public string[] AssemblyNames
         {
-            get => _assemblyNames ?? new[] { ".*" };
+            get => _assemblyNames ?? new[] { "*" };
             set => _assemblyNames = value;
         }
 
@@ -32,6 +28,6 @@ namespace CodeDI
         public string[] IgnoreInterface { get; set; }
 
         public Dictionary<string, string> InterfaceMappings { get; set; }
-        public Dictionary<string, int> ServiceLifeTimeMappings { get; set; }
+        public Dictionary<string, ServiceLifetime> ServiceLifeTimeMappings { get; set; }
     }
 }

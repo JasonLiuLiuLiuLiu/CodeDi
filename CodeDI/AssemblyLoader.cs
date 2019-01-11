@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CodeDI
+namespace CodeDi
 {
     class AssemblyLoader
     {
@@ -16,20 +16,21 @@ namespace CodeDI
             if (!options.IncludeSystemAssemblies)
             {
                 assemblies = assemblies.Where(assembly => assembly.ManifestModule.Name != "<In Memory Module>"
-                                                          && !assembly.FullName.StartsWith("System")
-                                                          && !assembly.FullName.StartsWith("Microsoft")
+                                                          && !assembly.GetAssemblyName().StartsWith("System")
+                                                          && !assembly.GetAssemblyName().StartsWith("Microsoft")
                                                           && assembly.Location.IndexOf("App_Web", StringComparison.Ordinal) == -1
                                                           && assembly.Location.IndexOf("App_global", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("CppCodeProvider", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("WebMatrix", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("SMDiagnostics", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("CppCodeProvider", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("WebMatrix", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("SMDiagnostics", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("Newtonsoft", StringComparison.Ordinal) == -1
                                                           && !string.IsNullOrEmpty(assembly.Location)).ToList();
             }
-            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd=>assemblies.All(u=>u.FullName!=toAdd.FullName)));
-            return assemblies.Where(u => options.AssemblyNames.Any( name => Regex.IsMatch(u.FullName, name)))
-                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => Regex.IsMatch(u.FullName, ignore) == false))
+            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd => assemblies.All(u => u.GetAssemblyName() != toAdd.GetAssemblyName())));
+            return assemblies.Where(u => options.AssemblyNames.Any(name => u.GetAssemblyName().Matches(name)))
+                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => u.GetAssemblyName().Matches(ignore) == false))
                 .Distinct().ToList();
-           
+
         }
 
         private static IEnumerable<Assembly> LoadFromPaths(string[] paths)
