@@ -28,4 +28,3 @@ deploy:
     secure: oy2do53giaysd77c5z5qynkvniu6h7euzjz5l34mnvhwoi
   on:
     branch: master
-    appveyor_repo_tag: true
