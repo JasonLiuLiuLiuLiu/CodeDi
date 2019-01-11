@@ -5,6 +5,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>zhenyu,liu</Authors>
     <Company>zhenyu,liu</Company>
+    <PackageProjectUrl>https://github.com/liuzhenyulive/CodeDI</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/liuzhenyulive/CodeDi/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/liuzhenyulive/CodeDI</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
