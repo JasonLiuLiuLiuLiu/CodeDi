@@ -5,10 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDI
 {
-    public class CodeDIServiceProvider : ICodeDIServiceProvider
+    public class CodeDiServiceProvider : ICodeDiServiceProvider
     {
         private IServiceCollection _serviceCollection;
-        public CodeDIServiceProvider(IServiceCollection serviceCollection)
+        public CodeDiServiceProvider(IServiceCollection serviceCollection)
         {
             _serviceCollection = serviceCollection;
         }

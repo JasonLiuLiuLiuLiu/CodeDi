@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CodeDI
 {
-    interface ICodeDIServiceProvider
+    interface ICodeDiServiceProvider
     {
         T GetServiceByImplementationType<T>() where T : class;
         List<T> GetServiceByServiceType<T>() where T : class;

@@ -31,7 +31,7 @@ namespace Example
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddCoreDI();
+            services.AddCoreDi();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CodeDI
 {
-    public class CoderDIOptions
+    public class CoderDiOptions
     {
         private int? _defaultServiceLifetime;
         public int DefaultServiceLifetime

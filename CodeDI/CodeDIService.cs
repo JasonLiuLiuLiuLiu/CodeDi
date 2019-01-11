@@ -8,16 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDI
 {
-    class CodeDIService
+    class CodeDiService
     {
         private readonly IServiceCollection _service;
-        private readonly CoderDIOptions _options;
+        private readonly CoderDiOptions _options;
         private readonly ServiceDescriptor[] _addedService;
 
-        public CodeDIService(IServiceCollection service, CoderDIOptions options)
+        public CodeDiService(IServiceCollection service, CoderDiOptions options)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
-            _options = options ?? new CoderDIOptions();
+            _options = options ?? new CoderDiOptions();
             _addedService = new ServiceDescriptor[service.Count];
             service.CopyTo(_addedService, 0);
         }
@@ -28,7 +28,7 @@ namespace CodeDI
 
             AddToService(interfaceMappings);
 
-            return _service.AddScoped<ICodeDIServiceProvider, CodeDIServiceProvider>();
+            return _service.AddScoped<ICodeDiServiceProvider, CodeDiServiceProvider>();
         }
 
         private void AddToService(Dictionary<Type, List<Type>> interfaceMappings)

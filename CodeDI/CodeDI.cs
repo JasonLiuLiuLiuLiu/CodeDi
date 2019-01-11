@@ -7,18 +7,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDI
 {
-    public static class CodeDI
+    public static class CodeDi
     {
-        public static IServiceCollection AddCoreDI(this IServiceCollection services, CoderDIOptions options = null)
+        public static IServiceCollection AddCoreDi(this IServiceCollection services, CoderDiOptions options = null)
         {
-            return new CodeDIService(services, options).AddService();
+            return new CodeDiService(services, options).AddService();
         }
 
-        public static IServiceCollection AddCoreDI(this IServiceCollection services, Action<CoderDIOptions> actionOptions)
+        public static IServiceCollection AddCoreDi(this IServiceCollection services, Action<CoderDiOptions> actionOptions)
         {
-            CoderDIOptions options = new CoderDIOptions();
+            CoderDiOptions options = new CoderDiOptions();
             actionOptions(options);
-            return new CodeDIService(services, options).AddService();
+            return new CodeDiService(services, options).AddService();
         }
 
     }
