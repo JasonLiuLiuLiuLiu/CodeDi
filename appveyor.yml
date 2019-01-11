@@ -16,7 +16,7 @@ artifacts:
 - path: artifacts/packages/*.nupkg
 deploy:
 - provider: NuGet
-  server: https://api.nuget.org/v3/index.json
+  server: https://www.nuget.org/api/v2/package
   api_key:
     secure: yhzYAvjn1OM1tBf+OV6G6G0JmM0ABSA70rhIHtitvWUmDyQh223zr8zNPiSPMlXP
   skip_symbols: true
