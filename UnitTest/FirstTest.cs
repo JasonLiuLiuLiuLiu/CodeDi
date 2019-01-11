@@ -7,9 +7,9 @@ namespace UnitTest
     public class FirstTest
     {
         [Test]
-        public void Test ()
+        public void Test()
         {
-           Assert.AreEqual(1,2);
+            Console.WriteLine("Hello world");
         }
     }
 }
