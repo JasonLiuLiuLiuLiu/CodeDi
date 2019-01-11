@@ -57,13 +57,13 @@ namespace CodeDI
             ServiceLifetime serviceLifetime;
             try
             {
-                serviceLifetime = (ServiceLifetime)_options.DefaultServiceLifetime;
+                serviceLifetime = _options.DefaultServiceLifetime;
                 if (_options.ServiceLifeTimeMappings != null && serviceType.FullName != null)
                 {
                     var lifeTimeMapping =
                         _options.ServiceLifeTimeMappings.FirstOrDefault(u => Regex.IsMatch(serviceType.FullName, u.Key));
 
-                    serviceLifetime = (ServiceLifetime)(lifeTimeMapping.Key != null ? lifeTimeMapping.Value : _options.DefaultServiceLifetime);
+                    serviceLifetime = lifeTimeMapping.Key != null ? lifeTimeMapping.Value : _options.DefaultServiceLifetime;
 
                 }
             }

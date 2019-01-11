@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDI
 {
     public class CodeDiServiceProvider : ICodeDiServiceProvider
     {
-        private IServiceCollection _serviceCollection;
-        public CodeDiServiceProvider(IServiceCollection serviceCollection)
+        private readonly IServiceProvider _serviceProvider;
+        public CodeDiServiceProvider(IServiceProvider serviceProvider)
         {
-            _serviceCollection = serviceCollection;
+            _serviceProvider = serviceProvider;
         }
 
-        public T GetServiceByImplementationType<T>() where T : class
+        public T GetService<T>(string name = ".*") where T : class
         {
-            throw new NotImplementedException();
+            return ((IEnumerable<T>)_serviceProvider.GetService(typeof(IEnumerable<T>))).FirstOrDefault(u => Regex.IsMatch(u.GetType().Name, name));
         }
 
-        public List<T> GetServiceByServiceType<T>() where T : class
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
