@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CodeDI
+namespace CodeDi
 {
     class AssemblyLoader
     {
@@ -26,11 +26,11 @@ namespace CodeDI
                                                           && assembly.FullName.IndexOf("Newtonsoft", StringComparison.Ordinal) == -1
                                                           && !string.IsNullOrEmpty(assembly.Location)).ToList();
             }
-            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd=>assemblies.All(u=>u.FullName!=toAdd.FullName)));
-            return assemblies.Where(u => options.AssemblyNames.Any( name => Regex.IsMatch(u.FullName, name)))
-                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => Regex.IsMatch(u.FullName, ignore) == false))
+            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd => assemblies.All(u => u.FullName != toAdd.FullName)));
+            return assemblies.Where(u => options.AssemblyNames.Any(name => u.FullName.Matches(name)))
+                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => u.FullName.Matches(ignore) == false))
                 .Distinct().ToList();
-           
+
         }
 
         private static IEnumerable<Assembly> LoadFromPaths(string[] paths)

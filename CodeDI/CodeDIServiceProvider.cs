@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CodeDI
+namespace CodeDi
 {
     public class CodeDiServiceProvider : ICodeDiServiceProvider
     {
@@ -17,12 +17,12 @@ namespace CodeDI
 
         public T GetService<T>() where T : class
         {
-            return ((IEnumerable<T>)_serviceProvider.GetService(typeof(IEnumerable<T>))).FirstOrDefault();
+            return _serviceProvider.GetService<IEnumerable<T>>().FirstOrDefault();
         }
 
         public T GetService<T>(string name) where T : class
         {
-            return ((IEnumerable<T>)_serviceProvider.GetService(typeof(IEnumerable<T>))).FirstOrDefault(u => Regex.IsMatch(u.GetType().Name, name));
+            return _serviceProvider.GetService<IEnumerable<T>>().FirstOrDefault(u => u.GetType().Name.Matches( name));
         }
     }
 }

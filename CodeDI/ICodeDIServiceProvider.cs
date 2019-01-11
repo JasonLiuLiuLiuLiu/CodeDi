@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeDI
+namespace CodeDi
 {
     public interface ICodeDiServiceProvider
     {

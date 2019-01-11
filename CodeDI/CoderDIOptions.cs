@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CodeDI
+namespace CodeDi
 {
     public class CoderDiOptions
     {
@@ -12,7 +12,7 @@ namespace CodeDI
         private string[] _assemblyNames;
         public string[] AssemblyNames
         {
-            get => _assemblyNames ?? new[] { ".*" };
+            get => _assemblyNames ?? new[] { "*" };
             set => _assemblyNames = value;
         }
 

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using CodeDi;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CodeDI
+namespace CodeDi
 {
     class CodeDiService
     {
@@ -28,7 +29,7 @@ namespace CodeDI
 
             AddToService(interfaceMappings);
 
-            return _service.AddScoped<ICodeDiServiceProvider, CodeDiServiceProvider>();
+            return _service;
         }
 
         private void AddToService(Dictionary<Type, List<Type>> interfaceMappings)
@@ -36,14 +37,14 @@ namespace CodeDI
             foreach (var mapping in interfaceMappings)
             {
                 if (mapping.Key.FullName == null || (_options.IgnoreInterface != null &&
-                   _options.IgnoreInterface.Any(i => Regex.IsMatch(mapping.Key.FullName, i))))
+                   _options.IgnoreInterface.Any(i => mapping.Key.FullName.Matches(i))))
                     continue;
 
                 if (mapping.Key.FullName != null && _options.InterfaceMappings != null &&
-                    _options.InterfaceMappings.Any(u => Regex.IsMatch(mapping.Key.FullName, u.Key)))
+                    _options.InterfaceMappings.Any(u => mapping.Key.FullName.Matches(u.Key)))
                 {
                     foreach (var item in mapping.Value.Where(value => value.FullName != null).
-                        Where(value => Regex.IsMatch(value.FullName, _options.InterfaceMappings.FirstOrDefault(u => Regex.IsMatch(mapping.Key.FullName, u.Key)).Value)))
+                        Where(value => value.FullName.Matches(_options.InterfaceMappings.FirstOrDefault(u => mapping.Key.FullName.Matches(u.Key)).Value)))
                     {
                         AddToService(mapping.Key, item);
                     }
@@ -52,7 +53,7 @@ namespace CodeDI
 
                 foreach (var item in mapping.Value)
                 {
-                    AddToService(mapping.Key,item);
+                    AddToService(mapping.Key, item);
                 }
             }
 
@@ -67,7 +68,7 @@ namespace CodeDI
                 if (_options.ServiceLifeTimeMappings != null && serviceType.FullName != null)
                 {
                     var lifeTimeMapping =
-                        _options.ServiceLifeTimeMappings.FirstOrDefault(u => Regex.IsMatch(serviceType.FullName, u.Key));
+                        _options.ServiceLifeTimeMappings.FirstOrDefault(u => serviceType.FullName.Matches(u.Key));
 
                     serviceLifetime = lifeTimeMapping.Key != null ? lifeTimeMapping.Value : _options.DefaultServiceLifetime;
 

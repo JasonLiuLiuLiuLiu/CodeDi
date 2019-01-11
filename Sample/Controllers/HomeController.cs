@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Sample.Models;
-using CodeDI;
+using CodeDi;
 using Microsoft.Extensions.Configuration;
 using Sample.Service;
 

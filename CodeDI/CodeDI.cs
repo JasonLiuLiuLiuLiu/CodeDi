@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CodeDI
+namespace CodeDi
 {
     public static class CodeDi
     {
