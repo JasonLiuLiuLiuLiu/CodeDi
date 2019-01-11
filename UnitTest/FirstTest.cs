@@ -9,7 +9,7 @@ namespace UnitTest
         [Test]
         public void Test ()
         {
-            Console.WriteLine("This is the first unit test");
+           Assert.AreEqual(1,2);
         }
     }
 }
