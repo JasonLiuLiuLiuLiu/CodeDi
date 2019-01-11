@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace CodeDi
@@ -35,6 +36,11 @@ namespace CodeDi
 
                 while (*wild == '*') wild++; return (*wild) == 0;
             }
+        }
+
+        public static string GetAssemblyName(this Assembly assembly)
+        {
+            return assembly.GetName().Name;
         }
     }
 }

@@ -16,19 +16,19 @@ namespace CodeDi
             if (!options.IncludeSystemAssemblies)
             {
                 assemblies = assemblies.Where(assembly => assembly.ManifestModule.Name != "<In Memory Module>"
-                                                          && !assembly.FullName.StartsWith("System")
-                                                          && !assembly.FullName.StartsWith("Microsoft")
+                                                          && !assembly.GetAssemblyName().StartsWith("System")
+                                                          && !assembly.GetAssemblyName().StartsWith("Microsoft")
                                                           && assembly.Location.IndexOf("App_Web", StringComparison.Ordinal) == -1
                                                           && assembly.Location.IndexOf("App_global", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("CppCodeProvider", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("WebMatrix", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("SMDiagnostics", StringComparison.Ordinal) == -1
-                                                          && assembly.FullName.IndexOf("Newtonsoft", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("CppCodeProvider", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("WebMatrix", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("SMDiagnostics", StringComparison.Ordinal) == -1
+                                                          && assembly.GetAssemblyName().IndexOf("Newtonsoft", StringComparison.Ordinal) == -1
                                                           && !string.IsNullOrEmpty(assembly.Location)).ToList();
             }
-            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd => assemblies.All(u => u.FullName != toAdd.FullName)));
-            return assemblies.Where(u => options.AssemblyNames.Any(name => u.FullName.Matches(name)))
-                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => u.FullName.Matches(ignore) == false))
+            assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd => assemblies.All(u => u.GetAssemblyName() != toAdd.GetAssemblyName())));
+            return assemblies.Where(u => options.AssemblyNames.Any(name => u.GetAssemblyName().Matches(name)))
+                .Where(u => options.IgnoreAssemblies == null || options.IgnoreAssemblies.All(ignore => u.GetAssemblyName().Matches(ignore) == false))
                 .Distinct().ToList();
 
         }
