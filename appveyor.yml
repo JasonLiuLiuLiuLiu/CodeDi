@@ -16,10 +16,16 @@ artifacts:
 - path: artifacts/packages/*.nupkg
 deploy:
 - provider: NuGet
-  server: https://www.nuget.org/api/v2/package
+  server: https://www.myget.org/F/zhenyu_dev/api/v2/package
   api_key:
-    secure: yhzYAvjn1OM1tBf+OV6G6G0JmM0ABSA70rhIHtitvWUmDyQh223zr8zNPiSPMlXP
+    secure: JHvuPDFPpkDhON0iCQVpEwJuR+BPt1jSzu8K7kf91uzj8+0Bq+U1H9DPNIfJnRBw
   skip_symbols: true
-  artifact: /artifacts\/packages\/.+\.nupkg/
   on:
     branch: master
+- provider: NuGet
+  name: production
+  api_key:
+    secure: oy2do53giaysd77c5z5qynkvniu6h7euzjz5l34mnvhwoi
+  on:
+    branch: master
+    appveyor_repo_tag: true
