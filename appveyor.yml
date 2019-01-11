@@ -20,7 +20,6 @@ deploy:
   api_key:
     secure: JHvuPDFPpkDhON0iCQVpEwJuR+BPt1jSzu8K7kf91uzj8+0Bq+U1H9DPNIfJnRBw
   skip_symbols: true
-  appveyor_repo_tag: true
   on:
     branch: master
 - provider: NuGet
