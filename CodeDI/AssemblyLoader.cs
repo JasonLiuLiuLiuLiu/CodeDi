@@ -23,6 +23,7 @@ namespace CodeDI
                                                           && assembly.FullName.IndexOf("CppCodeProvider", StringComparison.Ordinal) == -1
                                                           && assembly.FullName.IndexOf("WebMatrix", StringComparison.Ordinal) == -1
                                                           && assembly.FullName.IndexOf("SMDiagnostics", StringComparison.Ordinal) == -1
+                                                          && assembly.FullName.IndexOf("Newtonsoft", StringComparison.Ordinal) == -1
                                                           && !string.IsNullOrEmpty(assembly.Location)).ToList();
             }
             assemblies.AddRange(LoadFromPaths(options.AssemblyPaths).Where(toAdd=>assemblies.All(u=>u.FullName!=toAdd.FullName)));

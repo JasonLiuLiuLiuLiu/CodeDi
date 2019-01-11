@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sample.Models;
 using CodeDI;
 using Microsoft.Extensions.Configuration;
+using Sample.Service;
 
 namespace Sample.Controllers
 {
@@ -19,21 +20,10 @@ namespace Sample.Controllers
             _serviceProvider = serviceProvider;
         }
 
-        public IActionResult Index()
+        public string Index()
         {
-            _serviceProvider.GetServiceByServiceType<IConfiguration>();
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var say=_serviceProvider.GetService<ISay>("*English");
+            return say.Hello();
         }
     }
 }

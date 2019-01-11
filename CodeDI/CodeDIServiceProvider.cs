@@ -15,11 +15,14 @@ namespace CodeDI
             _serviceProvider = serviceProvider;
         }
 
-        public T GetService<T>(string name = ".*") where T : class
+        public T GetService<T>() where T : class
+        {
+            return ((IEnumerable<T>)_serviceProvider.GetService(typeof(IEnumerable<T>))).FirstOrDefault();
+        }
+
+        public T GetService<T>(string name) where T : class
         {
             return ((IEnumerable<T>)_serviceProvider.GetService(typeof(IEnumerable<T>))).FirstOrDefault(u => Regex.IsMatch(u.GetType().Name, name));
         }
-
-
     }
 }

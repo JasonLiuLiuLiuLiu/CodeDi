@@ -47,6 +47,12 @@ namespace CodeDI
                     {
                         AddToService(mapping.Key, item);
                     }
+                    continue;
+                }
+
+                foreach (var item in mapping.Value)
+                {
+                    AddToService(mapping.Key,item);
                 }
             }
 
