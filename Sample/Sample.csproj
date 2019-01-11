@@ -13,7 +13,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeDI\CodeDI.csproj" />
+    <ProjectReference Include="..\CodeDI\CodeDi.csproj" />
   </ItemGroup>
 
 </Project>
