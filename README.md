@@ -4,6 +4,8 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
 
 CodeDi is a tool help us add service to service collection in Asp.net core or .net core project.
+<!-- TOC -->autoauto- [CodeDi](#codedi)auto    - [Overview](#overview)auto    - [Getting Started](#getting-started)auto        - [Install NuGet Package](#install-nuget-package)auto        - [Add CodeDi to ConfigureServices](#add-codedi-to-configureservices)auto            - [Options 1](#options-1)auto            - [Options 2](#options-2)auto            - [Options 3](#options-3)auto        - [CodeDiOptions](#codedioptions)auto        - [License](#license)autoauto<!-- /TOC -->
+
 
 ## Overview
 
