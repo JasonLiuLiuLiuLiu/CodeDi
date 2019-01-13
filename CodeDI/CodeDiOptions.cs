@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDi
 {
-    public class CoderDiOptions
+    public class CodeDiOptions
     {
         public ServiceLifetime DefaultServiceLifetime { get; set; } = ServiceLifetime.Scoped;
 

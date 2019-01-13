@@ -10,7 +10,7 @@ namespace CodeDi
 {
     class AssemblyLoader
     {
-        public static IList<Assembly> LoadAssembly(CoderDiOptions options)
+        public static IList<Assembly> LoadAssembly(CodeDiOptions options)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
             if (!options.IncludeSystemAssemblies)
