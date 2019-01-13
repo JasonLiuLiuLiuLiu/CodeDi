@@ -21,6 +21,7 @@ You can run the following command to install the CodeDi in your project.
 PM> Install-Package CodeDi
 ```
 ### Add CodeDi to ConfigureServices
+#### Options 1
 Call the AddCodeDi method in the ConfigureService method of Startup to register the corresponding implementation of the interface in the system to the ServiceCollection.
 ```
         public void ConfigureServices(IServiceCollection services)
@@ -29,6 +30,7 @@ Call the AddCodeDi method in the ConfigureService method of Startup to register 
             services.AddMvc();
         }
 ```
+#### Options 2
 You can also call the AddCodeDi method with the Action<CodeDiOptions> parameter, which you can set value to the CodeDiOptions property in this action.
 ```
        public void ConfigureServices(IServiceCollection services)
@@ -41,7 +43,64 @@ You can also call the AddCodeDi method with the Action<CodeDiOptions> parameter,
             services.AddMvc();
         }
 ```
+#### Options 3
+Of course, you can also pass a CodeDiOptions parameter to AddCodeDi as follows.
+```
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCoreDi(new CodeDiOptions()
+            {
+                DefaultServiceLifetime = ServiceLifetime.Scoped
+            });
+            services.AddMvc();
+        }
+```
+You can also configure the Options information into the appsettings.json file and then bind the data to the CodeDiOptions parameter.
 
+appsetting.json file
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "CodeDiOptions": {
+    "DefaultServiceLifetime": 1,
+    "AssemblyNames": [
+      "*CodeDi"
+    ],
+    "AssemblyPaths": [
+      "C:\\MyBox\\Github\\CodeDI\\CodeDI\\bin\\Debug\\netstandard2.0"
+    ],
+    "IgnoreAssemblies": [
+      "*Test"
+    ],
+    "IncludeSystemAssemblies": false,
+    "IgnoreInterface": [
+      "*Say"
+    ],
+    "InterfaceMappings": {
+      "*Say": "*English"
+    },
+    "ServiceLifeTimeMappings": {
+      "*Say": 0
+    }
+  }
+}
+
+```
+ConfigureService method
+```
+        public void ConfigureServices(IServiceCollection services)
+        {
+            var options=new CodeDiOptions();
+            Configuration.Bind("CodeDiOptions", options);
+            services.AddCoreDi(options);
+            services.AddMvc();
+        }
+```
 
 ### License
 

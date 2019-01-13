@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeDi;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using UnitTest.TestService;
 
@@ -107,6 +108,24 @@ namespace UnitTest
             _serviceCollection.AddCoreDi(options => { options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*Say",ServiceLifetime.Singleton}}; });
             var service = GetServiceLifeTime<ISay>();
             Assert.AreEqual(service, ServiceLifetime.Singleton);
+        }
+
+        [Test]
+        public void ParseOptionsToCodeDi()
+        {
+            var options=new CodeDiOptions()
+            {
+                DefaultServiceLifetime = ServiceLifetime.Scoped,
+                AssemblyNames = new []{"*CodeDi"},
+                AssemblyPaths = new []{ "C:\\MyBox\\Github\\CodeDI\\CodeDI\\bin\\Debug\\netstandard2.0" },
+                IgnoreAssemblies = new []{"*Test"},
+                IncludeSystemAssemblies = false,
+                IgnoreInterface = new []{"*Say"},
+                InterfaceMappings = new Dictionary<string, string>() { {"*Say","*English"}},
+                ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>() { {"*Say",ServiceLifetime.Singleton}}
+            };
+            var json = JsonConvert.SerializeObject(options);
+            Console.WriteLine(json);
         }
 
 

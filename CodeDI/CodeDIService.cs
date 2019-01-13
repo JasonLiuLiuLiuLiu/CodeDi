@@ -12,13 +12,13 @@ namespace CodeDi
     class CodeDiService
     {
         private readonly IServiceCollection _service;
-        private readonly CoderDiOptions _options;
+        private readonly CodeDiOptions _options;
         private readonly ServiceDescriptor[] _addedService;
 
-        public CodeDiService(IServiceCollection service, CoderDiOptions options)
+        public CodeDiService(IServiceCollection service, CodeDiOptions options)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
-            _options = options ?? new CoderDiOptions();
+            _options = options ?? new CodeDiOptions();
             _addedService = new ServiceDescriptor[service.Count];
             service.CopyTo(_addedService, 0);
         }

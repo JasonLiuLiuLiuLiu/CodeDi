@@ -9,17 +9,16 @@ namespace CodeDi
 {
     public static class CodeDi
     {
-        public static IServiceCollection AddCoreDi(this IServiceCollection services, CoderDiOptions options = null)
+        public static IServiceCollection AddCoreDi(this IServiceCollection services, CodeDiOptions options = null)
         {
             return new CodeDiService(services, options).AddService();
         }
 
-        public static IServiceCollection AddCoreDi(this IServiceCollection services, Action<CoderDiOptions> actionOptions)
+        public static IServiceCollection AddCoreDi(this IServiceCollection services, Action<CodeDiOptions> actionOptions)
         {
-            CoderDiOptions options = new CoderDiOptions();
+            CodeDiOptions options = new CodeDiOptions();
             actionOptions(options);
             return new CodeDiService(services, options).AddService();
         }
-
     }
 }
