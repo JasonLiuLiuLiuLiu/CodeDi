@@ -10,6 +10,7 @@
     <RepositoryUrl>https://github.com/liuzhenyulive/CodeDI</RepositoryUrl>
     <Description>.Net Core Dependency Injection Tool</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
