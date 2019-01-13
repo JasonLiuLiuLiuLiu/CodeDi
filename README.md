@@ -102,6 +102,21 @@ ConfigureService method
         }
 ```
 
+### CodeDiOptions
+| Attribute name  | Attribute Description  | Data Type |Default Value  |
+| :------------: | :------------: | :------------: | :------------: |
+| AssemblyPaths  | Load dll under the specified path  |  string[] | Bin directory  |
+| AssemblyNames  | Load the specified assembly (supports wildcards)  | string[]  |  * |
+| IgnoreAssemblies | Ignore the specified assembly (wildcards are supported)  |   string[]|  null |
+| IncludeSystemAssemblies  |  Whether to include system assemblies |  bool | false  |
+| IgnoreInterface  |  Ignore the specified Interface (wildcards are supported) | string[]  |  null |
+| InterfaceMappings  | Interface and match to the corresponding implementation (support wildcards)  | Dictionary<string, string>  |  null |
+| DefaultServiceLifetime  |  Default service life time | ServuceLifetime( Singleton,Scoped,Transient)  |  ServiceLifetime.Scope |
+| ServiceLifeTimeMappings  | Specify the life time of a particular interface  |  Dictionary<string, ServiceLifetime> | null  |
+
+ServiceLifetime: https://github.com/aspnet/DependencyInjection/blob/master/src/DI.Abstractions/ServiceLifetime.cs
+
+
 ### License
 
 [MIT](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
