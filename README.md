@@ -3,7 +3,7 @@
 [![NuGet](https://img.shields.io/badge/nuget-1.0.1-blue.svg)](https://www.nuget.org/packages/CodeDI/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
 
-CodeDi is a tool help us add service to service collection in Asp.net core or .net core project.
+CodeDi is a tool library based on .Net standard, which help us add service to service collection in Asp.net core or .net core project.
 
 - [CodeDi](#codedi)
 - [Overview](#overview)
