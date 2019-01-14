@@ -205,7 +205,7 @@ options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*S
 `ICodeDiServiceProvider.GetService<T>(string name=null)`
 参数中的Name支持通配符.
 
-### Engoy it!
+### Enjoy it!
 
 加入了CodeDi后,当系统中添加了新的接口以及对应的服务实现后,我们只要进行一次配置,就不用再去一个个地Add到ServiceCollection中了,快到您的项目中试试吧!
 
