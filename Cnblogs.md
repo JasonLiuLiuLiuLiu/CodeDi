@@ -154,11 +154,15 @@ ConfigureService方法
 
 options.InterfaceMappings=new Dictionary<string, string>(){{ "*Say", "*Chinese" } }
 
+也就是{`接口名称`(支持通配符),`实现名称`(支持通配符)}
+
 #### ServiceLifeTimeMappings
 
 如果我们希望ISay接口的服务的生命周期为`Singleton`,我们可以这样配置`ServiceLifeTimeMappings`.
 
 options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*Say",ServiceLifetime.Singleton}};
+
+也就是也就是{`接口名称`(支持通配符),`Servicelifetime`}
 
 关于ServiceLifetime: https://github.com/aspnet/DependencyInjection/blob/master/src/DI.Abstractions/ServiceLifetime.cs
 
