@@ -1,21 +1,9 @@
-# CodeDi 　　　　　　　　　　　　　　　　　　　　　　[English](https://github.com/liuzhenyulive/CodeDi/blob/master/README.md)
+# CodeDi 　　　　　　　　　　　　　　　　　[English](https://github.com/liuzhenyulive/CodeDi/blob/master/README.md)
 [![Build status](https://ci.appveyor.com/api/projects/status/eeo8aua4n8r5fnce?svg=true)](https://ci.appveyor.com/project/liuzhenyulive/codedi)
 [![NuGet](https://img.shields.io/badge/nuget-1.0.1-blue.svg)](https://www.nuget.org/packages/CodeDI/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
 
 CodeDi是一个基于 .Net Standard的工具库,它能帮助我们自动地在Asp .net core或者 .net core项目中完成服务的注册.
-
-- [CodeDi](#codedi)
-- [Overview](#overview)
-- [Getting Started](#getting-started)
-  - [Install NuGet Package](#install-nuget-package)
-  - [Add CodeDi to ConfigureServices](#add-codedi-to-configureservices)
-    - [Options 1](#options-1)
-    - [Options 2](#options-2)
-    - [Options 3](#options-3)
-  - [CodeDiOptions](#codedioptions)
-- [License](#license)
-
 
 
 ## Overview
@@ -28,7 +16,7 @@ CodeDi 是 Code Dependency Injection的意思,不知道您是否遇到和我一�
 
 ### 安装Nuget包
 
-CodeDi的Nuget包已经发布到了nuget.org,您可以通过以下指令在您的项目中安装CodeDi
+CodeDi的Nuget包已经发布到了 nuget.org,您可以通过以下指令在您的项目中安装CodeDi
 
 ```
 PM> Install-Package CodeDi

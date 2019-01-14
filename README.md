@@ -5,18 +5,6 @@
 
 CodeDi is a tool library based on .Net standard, which help us add service to service collection in Asp.net core or .net core project.
 
-- [CodeDi](#codedi)
-- [Overview](#overview)
-- [Getting Started](#getting-started)
-  - [Install NuGet Package](#install-nuget-package)
-  - [Add CodeDi to ConfigureServices](#add-codedi-to-configureservices)
-    - [Options 1](#options-1)
-    - [Options 2](#options-2)
-    - [Options 3](#options-3)
-  - [CodeDiOptions](#codedioptions)
-- [License](#license)
-
-
 
 ## Overview
 
