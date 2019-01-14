@@ -219,8 +219,8 @@ options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*S
 `ICodeDiServiceProvider.GetService<T>(string name=null)`
 参数中的Name支持通配符.
 
-### CodeDi如何实现的?
-既然时一个`轻量级工具`,那么实现起来自然不会太复杂,我来说说比较核心的代码.
+## CodeDi如何实现的?
+既然是一个`轻量级工具`,那么实现起来自然不会太复杂,我来说说比较核心的代码.
 
 ```
   private Dictionary<Type, List<Type>> GetInterfaceMapping(IList<Assembly> assemblies)
@@ -329,7 +329,7 @@ AddToService中,要判断有没有对接口的生命周期进行配置,参见[Se
 ```
 这CodeDiServiceProvider的实现代码,这里参考了依乐祝写的[<.NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了>](https://www.cnblogs.com/yilezhu/p/10236163.html ".NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了")给出的一种解决方案,即当某个接口注册了多个实现,其实可以通过IEnumerable<T>获取所有的实现,CodeDiServiceProvider对其进行了封装.
 
-### Enjoy it
+## Enjoy it
 
 只要进行一次简单的CodeDi配置,以后系统中添加了新的接口以及对应的服务实现后,就不用再去一个个地Add到IServiceCollection中了.
 
