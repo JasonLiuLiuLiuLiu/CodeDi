@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/liuzhenyulive/CodeDI</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/liuzhenyulive/CodeDi/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/liuzhenyulive/CodeDI</RepositoryUrl>
-    <Description>.Net Core Dependency Injection Tool</Description>
+    <Description>CodeDi is a tool help us add service to service collection in Asp.net core or .net core project.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>1.0.1</Version>
   </PropertyGroup>
