@@ -63,7 +63,6 @@ PM> Install-Package CodeDi
             services.AddMvc();
         }
 ```
-You can also configure the Options information into the appsettings.json file and then bind the data to the CodeDiOptions parameter.
 你也可以在`appsetting.json`文件中配置`CodeDiOptions`的信息,并通过`Configuration.Bind("CodeDiOptions", options)`把配置信息绑定到一个`CodeDiOptions`实例.
 
 appsetting.json file
