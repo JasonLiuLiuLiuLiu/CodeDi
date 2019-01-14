@@ -240,7 +240,7 @@ options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*S
             return mappings;
         }
 ```
-GetInterfaceMapping通过反射机制,首先获取程序集中的所有接口`allInterfaces`,然后编辑`allInterfaces`找到该接口对应的实现,最终,该方法返回接口和实现的匹配关系,为Dictionary<Type, List<Type>>类型的数据.
+GetInterfaceMapping通过反射机制,首先获取程序集中的所有接口`allInterfaces`,然后遍历`allInterfaces`找到该接口对应的实现,最终,该方法返回接口和实现的匹配关系,为Dictionary<Type, List<Type>>类型的数据.
 
 ```
         private void AddToService(Dictionary<Type, List<Type>> interfaceMappings)

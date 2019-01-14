@@ -6,13 +6,8 @@
 CodeDi是一个基于 .Net Standard的工具库,它能帮助我们自动地在Asp .net core或者 .net core项目中完成服务的注册.
 
 
-## Overview
 
-CodeDi 是 Code Dependency Injection的意思,不知道您是否遇到和我一样的问题,在系统中有大量的接口对应的实现需要注册到ServiceCollection中,或者某个接口有多个实现,我们在构造函数中获取某个实现不是那么方便.在上次我在看了由依乐祝写的[<.NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了>](https://www.cnblogs.com/yilezhu/p/10236163.html ".NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了")后,我想如果写一个工具帮助我们自动地完成服务的注册,以及把服务获取方法做一个封装,不是很好?所以这个工具就诞生了.
-
-
-
-## Getting Started
+## 如何使用CodeDi
 
 ### 安装Nuget包
 
@@ -56,7 +51,6 @@ PM> Install-Package CodeDi
             services.AddMvc();
         }
 ```
-You can also configure the Options information into the appsettings.json file and then bind the data to the CodeDiOptions parameter.
 你也可以在`appsetting.json`文件中配置`CodeDiOptions`的信息,并通过`Configuration.Bind("CodeDiOptions", options)`把配置信息绑定到一个`CodeDiOptions`实例.
 
 appsetting.json file
@@ -117,6 +111,7 @@ ConfigureService方法
 | ServiceLifeTimeMappings  | 指定某个接口的服务生命周期,不指定为默认的生命周期  |  Dictionary<string, ServiceLifetime> | null  |
 
 
+#### InterfaceMappings
 
 如果 `ISay` 接口有`SayInChinese` 和`SayInEnglish` 两个实现,我们只想把SayInEnglish注册到`ServiceCollection`中
 
@@ -130,7 +125,7 @@ ConfigureService方法
     {
         public string Hello()
         {
-            return "ä½ å¥½";
+            return "您好";
         }
     }
 
@@ -147,16 +142,23 @@ ConfigureService方法
 
 options.InterfaceMappings=new Dictionary<string, string>(){{ "*Say", "*Chinese" } }
 
+也就是{`接口名称`(支持通配符),`实现名称`(支持通配符)}
+
+#### ServiceLifeTimeMappings
+
 如果我们希望ISay接口的服务的生命周期为`Singleton`,我们可以这样配置`ServiceLifeTimeMappings`.
 
 options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*Say",ServiceLifetime.Singleton}};
+
+也就是也就是{`接口名称`(支持通配符),`Servicelifetime`}
 
 关于ServiceLifetime: https://github.com/aspnet/DependencyInjection/blob/master/src/DI.Abstractions/ServiceLifetime.cs
 
 
 
 ### 获取服务实例
-当然, 您可以和之前一样,直接在构造函数中进行服务的注册,但是当某个接口有多个实现而且都注册到了ServiceCollection中,获取就没有那么方便了,您可以用`ICodeDiServiceProvider` 来帮助您获取服务实例.
+
+当然, 您可以和之前一样,直接在构造函数中进行依赖的注入,但是当某个接口有多个实现而且都注册到了ServiceCollection中,获取就没有那么方便了,您可以用`ICodeDiServiceProvider` 来帮助您获取服务实例.
 
 
 例如,当 `ISay` 接口有 `SayInChinese` 和 `SayInEnglish`两个实现, 我们我们如何获取我们想要的服务实例呢?
@@ -205,11 +207,124 @@ options.ServiceLifeTimeMappings = new Dictionary<string, ServiceLifetime>(){{"*S
 `ICodeDiServiceProvider.GetService<T>(string name=null)`
 参数中的Name支持通配符.
 
-### Enjoy it!
+## CodeDi如何实现的?
+既然是一个`轻量级工具`,那么实现起来自然不会太复杂,我来说说比较核心的代码.
 
-加入了CodeDi后,当系统中添加了新的接口以及对应的服务实现后,我们只要进行一次配置,就不用再去一个个地Add到ServiceCollection中了,快到您的项目中试试吧!
+```
+  private Dictionary<Type, List<Type>> GetInterfaceMapping(IList<Assembly> assemblies)
+        {
+            var mappings = new Dictionary<Type, List<Type>>();
+            var allInterfaces = assemblies.SelectMany(u => u.GetTypes()).Where(u => u.IsInterface);
+            foreach (var @interface in allInterfaces)
+            {
+                mappings.Add(@interface, assemblies.SelectMany(a =>
+                        a.GetTypes().
+                            Where(t =>
+                                t.GetInterfaces().Contains(@interface)
+                            )
+                    )
+                    .ToList());
+            }
+            return mappings;
+        }
+```
+GetInterfaceMapping通过反射机制,首先获取程序集中的所有接口`allInterfaces`,然后遍历`allInterfaces`找到该接口对应的实现,最终,该方法返回接口和实现的匹配关系,为Dictionary<Type, List<Type>>类型的数据.
 
+```
+        private void AddToService(Dictionary<Type, List<Type>> interfaceMappings)
+        {
+            foreach (var mapping in interfaceMappings)
+            {
+                if (mapping.Key.FullName == null || (_options.IgnoreInterface != null &&
+                   _options.IgnoreInterface.Any(i => mapping.Key.FullName.Matches(i))))
+                    continue;
 
+                if (mapping.Key.FullName != null && _options.InterfaceMappings != null &&
+                    _options.InterfaceMappings.Any(u => mapping.Key.FullName.Matches(u.Key)))
+                {
+                    foreach (var item in mapping.Value.Where(value => value.FullName != null).
+                        Where(value => value.FullName.Matches(_options.InterfaceMappings.FirstOrDefault(u => mapping.Key.FullName.Matches(u.Key)).Value)))
+                    {
+                        AddToService(mapping.Key, item);
+                    }
+                    continue;
+                }
+
+                foreach (var item in mapping.Value)
+                {
+                    AddToService(mapping.Key, item);
+                }
+            }
+        }
+```
+
+该方法要判断CodeDiOptions中是否忽略了该接口,同时,是否指定实现映射关系.
+什么叫实现映射关系呢?参见[InterfaceMappings](#interfacemappings)
+如果指定了,那么就按指定的来实现,如果没指定,就会把每个实现都注册到ServiceCollection中.
+
+```
+        private readonly IServiceCollection _service;
+        private readonly CodeDiOptions _options;
+        private readonly ServiceDescriptor[] _addedService;
+
+        public CodeDiService(IServiceCollection service, CodeDiOptions options)
+        {
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _options = options ?? new CodeDiOptions();
+            _addedService = new ServiceDescriptor[service.Count];
+            service.CopyTo(_addedService, 0);
+            //在构造函数中,我们通过这种方式把Service中已经添加的服务读取出来
+            //后面进行服务注册时,会进行判断,避免重复添加
+        }
+
+        private void AddToService(Type serviceType, Type implementationType)
+        {
+            ServiceLifetime serviceLifetime;
+            try
+            {
+                serviceLifetime = _options.DefaultServiceLifetime;
+                if (_options.ServiceLifeTimeMappings != null && serviceType.FullName != null)
+                {
+                    var lifeTimeMapping =
+                        _options.ServiceLifeTimeMappings.FirstOrDefault(u => serviceType.FullName.Matches(u.Key));
+
+                    serviceLifetime = lifeTimeMapping.Key != null ? lifeTimeMapping.Value : _options.DefaultServiceLifetime;
+
+                }
+            }
+            catch
+            {
+                throw new Exception("Service Life Time Only Can be set in range of 0-2");
+            }
+
+            if (_addedService.Where(u => u.ServiceType == serviceType).Any(u => u.ImplementationType == implementationType))
+                return;
+            _service.Add(new ServiceDescriptor(serviceType, implementationType, serviceLifetime));
+        }
+```
+AddToService中,要判断有没有对接口的生命周期进行配置,参见[ServiceLifeTimeMappings](#servicelifetimemappings),如果没有配置,就按DefaultServiceLifetime进行配置,DefaultServiceLifetime如果没有修改的情况下时ServiceLifetime.Scoped,即每个Request创建一个实例.
+
+```
+        private readonly IServiceProvider _serviceProvider;
+        public CodeDiServiceProvider(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+        public T GetService<T>(string name) where T : class
+        {
+            return _serviceProvider.GetService<IEnumerable<T>>().FirstOrDefault(u => u.GetType().Name.Matches( name));
+        }
+```
+这CodeDiServiceProvider的实现代码,这里参考了依乐祝写的[<.NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了>](https://www.cnblogs.com/yilezhu/p/10236163.html ".NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了")给出的一种解决方案,即当某个接口注册了多个实现,其实可以通过IEnumerable<T>获取所有的实现,CodeDiServiceProvider对其进行了封装.
+
+## Enjoy it
+
+只要进行一次简单的CodeDi配置,以后系统中添加了新的接口以及对应的服务实现后,就不用再去一个个地Add到IServiceCollection中了.
+
+如果有问题,欢迎Issue,欢迎PR.
+最后,赏个Star呗!
+
+ 
 ### License
 
 [MIT](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
