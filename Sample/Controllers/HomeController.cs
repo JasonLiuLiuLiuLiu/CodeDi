@@ -13,7 +13,7 @@ namespace Sample.Controllers
 {
     public class HomeController : Controller
     {
-        private ISay _say;
+        private readonly ISay _say;
 
         public HomeController(ICodeDiServiceProvider serviceProvider)
         {

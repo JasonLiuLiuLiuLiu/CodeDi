@@ -1,4 +1,4 @@
-# CodeDi
+# CodeDi 　　　　　　　　　　　　　　　　　　　　　　[中文](https://github.com/liuzhenyulive/CodeDi/blob/master/README.zh_cn.md)
 [![Build status](https://ci.appveyor.com/api/projects/status/eeo8aua4n8r5fnce?svg=true)](https://ci.appveyor.com/project/liuzhenyulive/codedi)
 [![NuGet](https://img.shields.io/badge/nuget-1.0.1-blue.svg)](https://www.nuget.org/packages/CodeDI/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
@@ -35,7 +35,7 @@ PM> Install-Package CodeDi
 ```
 ### Add CodeDi to ConfigureServices
 #### Options 1
-Call the AddCodeDi method in the ConfigureService method of Startup to register the corresponding implementation of the interface in the system to the ServiceCollection.
+Call the AddCodeDi method in the `ConfigureService` method of `Startup` to register the corresponding implementation of the interface in the system to the ServiceCollection.
 ```
         public void ConfigureServices(IServiceCollection services)
         {
@@ -144,7 +144,7 @@ If the `ISay` interface has `SayInChinese` and `SayInEnglish` two implementation
     {
         public string Hello()
         {
-            return "你好";
+            return "您好";
         }
     }
 
@@ -178,6 +178,10 @@ If the `ISay` interface has `SayInChinese` and `SayInEnglish` two implementation
 `ICodeDiServiceProvider.GetService<T>(string name=null)`
 The Name supports wildcards,
 
+
+### Engoy it!
+
+After adding CodeDi, after adding new interfaces and corresponding service implementations in the system, we only need to perform configuration once, so we don't have to add Add to ServiceCollection one by one. Try it in your project!
 
 ### License
 
