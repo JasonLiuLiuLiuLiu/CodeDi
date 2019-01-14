@@ -137,7 +137,7 @@ ConfigureService方法
     {
         public string Hello()
         {
-            return "ä½ å¥½";
+            return "您好";
         }
     }
 
