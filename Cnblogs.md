@@ -1,9 +1,21 @@
-# CodeDi 　　　　　　　　　　　　　　　　　[English](https://github.com/liuzhenyulive/CodeDi/blob/master/README.md)
+###  为什么做这么一个工具
+因为我们的系统往往时面向接口编程的,所以在开发Asp .net core项目的时候,一定会有大量大接口及其对应的实现要在`ConfigureService`注册到`ServiceCollection`中,传统的做法是加了一个服务,我们就要注册一次(`service.AddService()`),又比如,当一个接口有多个实现,在构造函数中获取服务也不是很友好,而据我所知, .Net Core目前是没有什么自带的库或者方法解决这些问题,当然,如果引入第三方容器如AutoFac这些问题时能迎刃而解的,但是如何在不引入第三方容器来解决这个问题呢?
+所以我就设计了这样的一个轻量级工具.
+
+首先,放上该项目的Github地址(记得Star哦!!)
+
+https://github.com/liuzhenyulive/CodeDi
+
 [![Build status](https://ci.appveyor.com/api/projects/status/eeo8aua4n8r5fnce?svg=true)](https://ci.appveyor.com/project/liuzhenyulive/codedi)
 [![NuGet](https://img.shields.io/badge/nuget-1.0.1-blue.svg)](https://www.nuget.org/packages/CodeDI/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
 
 CodeDi是一个基于 .Net Standard的工具库,它能帮助我们自动地在Asp .net core或者 .net core项目中完成服务的注册.
+
+
+## Overview
+
+CodeDi 是 Code Dependency Injection的意思,在上次我在看了由依乐祝写的[<.NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了>](https://www.cnblogs.com/yilezhu/p/10236163.html ".NET Core中的一个接口多种实现的依赖注入与动态选择看这篇就够了")后,回想起我之前遇到的那些问题,感觉拨云见日,所以,我就开始着手写这个工具了.
 
 
 
@@ -322,9 +334,6 @@ AddToService中,要判断有没有对接口的生命周期进行配置,参见[Se
 只要进行一次简单的CodeDi配置,以后系统中添加了新的接口以及对应的服务实现后,就不用再去一个个地Add到IServiceCollection中了.
 
 如果有问题,欢迎Issue,欢迎PR.
-最后,赏个Star呗!
+最后,赏个Star呗! [前往Star](https://github.com/liuzhenyulive/CodeDi) 
 
  
-### License
-
-[MIT](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)

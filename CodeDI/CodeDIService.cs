@@ -56,7 +56,6 @@ namespace CodeDi
                     AddToService(mapping.Key, item);
                 }
             }
-
         }
 
         private void AddToService(Type serviceType, Type implementationType)

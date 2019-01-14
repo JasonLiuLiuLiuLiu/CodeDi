@@ -167,7 +167,7 @@ If the `ISay` interface has `SayInChinese` and `SayInEnglish` two implementation
 The Name supports wildcards,
 
 
-### Engoy it!
+### Enjoy it!
 
 After adding CodeDi, after adding new interfaces and corresponding service implementations in the system, we only need to perform configuration once, so we don't have to add Add to ServiceCollection one by one. Try it in your project!
 
