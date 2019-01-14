@@ -1,4 +1,4 @@
-# CodeDi ??????????????????????[??](https://github.com/liuzhenyulive/CodeDi/blob/master/README.zh_cn.md)
+# CodeDi 　　　　　　　　　　　　　　　　　　　　　　[中文](https://github.com/liuzhenyulive/CodeDi/blob/master/README.zh_cn.md)
 [![Build status](https://ci.appveyor.com/api/projects/status/eeo8aua4n8r5fnce?svg=true)](https://ci.appveyor.com/project/liuzhenyulive/codedi)
 [![NuGet](https://img.shields.io/badge/nuget-1.0.1-blue.svg)](https://www.nuget.org/packages/CodeDI/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/liuzhenyulive/codedi/master/LICENSE)
@@ -144,7 +144,7 @@ If the `ISay` interface has `SayInChinese` and `SayInEnglish` two implementation
     {
         public string Hello()
         {
-            return "你好";
+            return "ä½ å¥½";
         }
     }
 
