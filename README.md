@@ -144,7 +144,7 @@ If the `ISay` interface has `SayInChinese` and `SayInEnglish` two implementation
     {
         public string Hello()
         {
-            return "ä½ å¥½";
+            return "您好";
         }
     }
 
