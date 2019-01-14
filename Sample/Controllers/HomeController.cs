@@ -13,17 +13,16 @@ namespace Sample.Controllers
 {
     public class HomeController : Controller
     {
-        private ICodeDiServiceProvider _serviceProvider;
+        private ISay _say;
 
         public HomeController(ICodeDiServiceProvider serviceProvider)
         {
-            _serviceProvider = serviceProvider;
+            _say = serviceProvider.GetService<ISay>("*Chinese");
         }
 
         public string Index()
         {
-            var say=_serviceProvider.GetService<ISay>("*English");
-            return say.Hello();
+            return _say.Hello();
         }
     }
 }
